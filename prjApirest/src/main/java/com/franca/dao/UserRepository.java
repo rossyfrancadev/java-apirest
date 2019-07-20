@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.franca.models.Usuario;
+import com.franca.models.User;
 
 public class UserRepository {
-	List<Usuario> users;
+	List<User> users;
 
 	public UserRepository() {
 		users = new ArrayList<>();
-		Usuario user = new Usuario();
+		User user = new User();
 		user.setId(1);
 		user.setEmail("rossyfranca@gmail.com");
 		user.setPassword("123");
 		user.setDataCriacao(new Date());
 
-		Usuario user2 = new Usuario();
+		User user2 = new User();
 		user2.setId(2);
 		user2.setEmail("rodrigofranca@gmail.com");
 		user2.setPassword("123");
@@ -27,20 +27,20 @@ public class UserRepository {
 		users.add(user2);
 	}
 
-	public List<Usuario> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public Usuario getUser(int id) {
+	public User getUser(int id) {
 
-		for (Usuario a : users) {
+		for (User a : users) {
 			if (a.getId() == id)
 				return a;
 		}
 		return null;
 	}
 
-	public void create(Usuario user) {
+	public void create(User user) {
 		users.add(user);
 	}
 }

@@ -1,11 +1,11 @@
-package com.franca.prjApirest;
+package com.franca.resource;
 
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.franca.dao.UserRepository;
-import com.franca.models.Usuario;;
+import com.franca.models.User;;
 
 @Path("usuarios")
 public class UsuarioResource {
@@ -15,7 +15,7 @@ public class UsuarioResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Usuario> getUsers() {
+	public List<User> getUsers() {
 		System.out.println("get user called");
 
 		return repo.getUsers();
@@ -24,12 +24,12 @@ public class UsuarioResource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Usuario getUser(@PathParam("id") int id) {
+	public User getUser(@PathParam("id") int id) {
 		return repo.getUser(id);
 	}
 
 	@POST
-	public Usuario createUser(Usuario user) {
+	public User createUser(User user) {
 		System.out.println(user);
 		repo.create(user);
 		return user;

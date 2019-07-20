@@ -2,7 +2,7 @@ package com.franca.models;
 
 import java.util.Date;
 
-public class Usuario {
+public class User {
 
 	private int id;
 	private String email;
@@ -57,7 +57,7 @@ public class Usuario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		User other = (User) obj;
 		if (id != other.id)
 			return false;
 		return true;

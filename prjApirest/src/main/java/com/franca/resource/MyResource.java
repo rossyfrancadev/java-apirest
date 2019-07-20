@@ -1,4 +1,4 @@
-package com.franca.prjApirest;
+package com.franca.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
