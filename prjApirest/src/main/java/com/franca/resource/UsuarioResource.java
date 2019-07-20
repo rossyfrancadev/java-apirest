@@ -4,14 +4,14 @@ import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import com.franca.dao.UserRepository;
+import com.franca.dao.UserDao;
 import com.franca.models.User;;
 
 @Path("usuarios")
 public class UsuarioResource {
 	// GET expecifica o verbo da rota
 
-	UserRepository repo = new UserRepository();
+	UserDao repo = new UserDao();
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

@@ -1,14 +1,29 @@
 package com.franca.models;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class User {
+@Entity
+@Table(name = "tb_user")
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	private String email;
 	private String password;
 	private Date dataCriacao;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -17,6 +32,7 @@ public class User {
 		this.id = id;
 	}
 
+	@Column(length = 50, nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -25,6 +41,7 @@ public class User {
 		this.email = email;
 	}
 
+	@Column(length = 50, nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -33,6 +50,8 @@ public class User {
 		this.password = password;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_criacao", nullable = false)
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}

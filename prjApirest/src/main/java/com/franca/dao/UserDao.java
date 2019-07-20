@@ -6,10 +6,10 @@ import java.util.List;
 
 import com.franca.models.User;
 
-public class UserRepository {
+public class UserDao {
 	List<User> users;
 
-	public UserRepository() {
+	public UserDao() {
 		users = new ArrayList<>();
 		User user = new User();
 		user.setId(1);
