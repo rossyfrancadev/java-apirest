@@ -1,8 +1,15 @@
 package com.franca.resource;
 
 import java.util.List;
-import javax.ws.rs.*;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.franca.dao.UserDao;
 import com.franca.models.User;;
@@ -11,29 +18,27 @@ import com.franca.models.User;;
 public class UsuarioResource {
 	// GET expecifica o verbo da rota
 
-	UserDao repo = new UserDao();
-
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getUsers() {
 		System.out.println("get user called");
 
-		return repo.getUsers();
+		return null;
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUser(@PathParam("id") int id) {
-		return repo.getUser(id);
+		return null;
 	}
 
 	@POST
-	public User createUser(User user) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createUser(User user) {
 		System.out.println(user);
-		repo.create(user);
-		return user;
+		UserDao.save(user);
+		return Response.status(201).build();
 	}
-	
-	
+
 }

@@ -1,46 +1,64 @@
 package com.franca.dao;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.EntityManager;
 
 import com.franca.models.User;
+import com.franca.utils.ConnectionFactory;
 
+/**
+ * E entidade Usuário terá somente a sua inclusão, alteração de senha e a
+ * autenticação de usuário
+ */
 public class UserDao {
-	List<User> users;
 
-	public UserDao() {
-		users = new ArrayList<>();
-		User user = new User();
-		user.setId(1);
-		user.setEmail("rossyfranca@gmail.com");
-		user.setPassword("123");
-		user.setDataCriacao(new Date());
-
-		User user2 = new User();
-		user2.setId(2);
-		user2.setEmail("rodrigofranca@gmail.com");
-		user2.setPassword("123");
-		user2.setDataCriacao(new Date());
-
-		users.add(user);
-		users.add(user2);
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public User getUser(int id) {
-
-		for (User a : users) {
-			if (a.getId() == id)
-				return a;
+	public static void save(User user) {
+		EntityManager entity = null;
+		try {
+			entity = ConnectionFactory.getConnection();
+			entity.getTransaction().begin();
+			entity.persist(user);
+			entity.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			entity.close();
 		}
-		return null;
 	}
 
-	public void create(User user) {
-		users.add(user);
+	// TODO: Função com comportamento errado, pois o user não terá id
+	public static void updatePassword(User user) {
+		EntityManager entity = null;
+		try {
+			entity = ConnectionFactory.getConnection();
+			entity.getTransaction().begin();
+
+			User foundUser = entity.find(User.class, user.getId());
+			if (foundUser != null) {
+				foundUser.setPassword(user.getPassword());
+				entity.merge(foundUser);
+				entity.getTransaction().commit();
+			} else {
+				System.out.println("user not found...");
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			entity.close();
+		}
+	}
+
+	public static boolean authenticate(User user) {
+		EntityManager entity = null;
+
+		try {
+			entity = ConnectionFactory.getConnection();
+			entity.getTransaction().begin();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return false;
 	}
 }
