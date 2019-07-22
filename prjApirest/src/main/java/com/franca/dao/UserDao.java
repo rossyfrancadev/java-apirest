@@ -1,5 +1,7 @@
 package com.franca.dao;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 
 import com.franca.models.User;
@@ -16,6 +18,9 @@ public class UserDao {
 		try {
 			entity = ConnectionFactory.getConnection();
 			entity.getTransaction().begin();
+			Date data = new Date();
+			user.setDataCriacao(data);
+			user.setAtivo(true);
 			entity.persist(user);
 			entity.getTransaction().commit();
 		} catch (Exception e) {
@@ -54,7 +59,7 @@ public class UserDao {
 		try {
 			entity = ConnectionFactory.getConnection();
 			entity.getTransaction().begin();
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

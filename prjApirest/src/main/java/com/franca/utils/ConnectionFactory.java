@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 public class ConnectionFactory {
 
-	private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("prjApirest");
+	private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("barwebPU");
 
 	public static EntityManager getConnection() {
 		return factory.createEntityManager();

@@ -1,4 +1,4 @@
-package com.franca.resource;
+package com.franca.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

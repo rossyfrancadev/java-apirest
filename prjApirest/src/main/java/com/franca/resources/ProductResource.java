@@ -1,4 +1,4 @@
-package com.franca.resource;
+package com.franca.resources;
 
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -53,7 +53,8 @@ public class ProductResource {
 		ProductDao.removeById(id);
 		return Response.ok()
 				.status(202)
-				.entity("Product id: " + id + " has removed successfully!").build();
+				.entity("Product id: " + id + " has removed successfully!")
+				.build();
 	}
 
 }

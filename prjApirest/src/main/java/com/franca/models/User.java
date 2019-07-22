@@ -21,6 +21,7 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private Date dataCriacao;
+	private boolean ativo;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,6 +49,21 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Column(name = "ativo", columnDefinition = "boolean default true", nullable = false)
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", dataCriacao=" + dataCriacao
+				+ ", ativo=" + ativo + "]";
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -82,10 +98,6 @@ public class User implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", email=" + email + ", password=" + password + ", dataCriacao=" + dataCriacao
-				+ "]";
-	}
+	
 
 }

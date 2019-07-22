@@ -1,4 +1,4 @@
-package com.franca.resource;
+package com.franca.resources;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import com.franca.dao.UserDao;
 import com.franca.models.User;;
 
 @Path("usuarios")
-public class UsuarioResource {
+public class UserResource {
 	// GET expecifica o verbo da rota
 
 	@GET
