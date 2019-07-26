@@ -56,12 +56,6 @@ public class User implements Serializable {
 		return ativo;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", dataCriacao=" + dataCriacao
-				+ ", ativo=" + ativo + "]";
-	}
-
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
@@ -74,6 +68,12 @@ public class User implements Serializable {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", dataCriacao=" + dataCriacao
+				+ ", ativo=" + ativo + "]";
 	}
 
 	@Override
@@ -97,7 +97,5 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 
 }

@@ -1,8 +1,7 @@
-package com.franca.utils;
+package com.franca.tests;
 
-import com.franca.dao.ProductDao;
-import com.franca.models.Product;
-import com.franca.services.UserBusiness;
+import com.franca.dao.UserDao;
+import com.franca.models.User;
 
 public class ProductTest {
 
@@ -17,8 +16,11 @@ public class ProductTest {
 		// // ProductDao.update(product);
 		// // System.out.println(ProductDao.findAll());
 		// ProductDao.removeById(3);
-		String email = "rossyfranca@gmail.com";
-		UserBusiness.sendMailConfirmation(email);
+		// User user = new User();
+		// user.setEmail("teste");
+		// user.setPassword("123");
+		// UserDao.save(user);
+	
 	}
 
 }

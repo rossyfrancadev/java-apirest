@@ -1,11 +1,20 @@
 package com.franca.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import com.franca.models.User;
 import com.franca.utils.ConnectionFactory;
+
+import jersey.repackaged.com.google.common.base.MoreObjects.ToStringHelper;
 
 /**
  * E entidade Usuário terá somente a sua inclusão, alteração de senha e a
@@ -53,17 +62,22 @@ public class UserDao {
 		}
 	}
 
-	public static boolean authenticate(User user) {
-		EntityManager entity = null;
+	@SuppressWarnings("unchecked")
+	public static User findByEmail(String email) {
+		List<User> results = new ArrayList<>();
+		EntityManager manager = null;
+		manager = ConnectionFactory.getConnection();
+		CriteriaBuilder qb = manager.getCriteriaBuilder();
+		CriteriaQuery<User> criteriaQuery = qb.createQuery(User.class);
 
-		try {
-			entity = ConnectionFactory.getConnection();
-			entity.getTransaction().begin();
+		Root<User> u = criteriaQuery.from(User.class);
+		Predicate condition = qb.equal(u.get("email"), email);
+		criteriaQuery.where(condition);
+		TypedQuery<User> q = manager.createQuery(criteriaQuery);
+		User result = q.getSingleResult();
 
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		return result;
 
-		return false;
 	}
+
 }
