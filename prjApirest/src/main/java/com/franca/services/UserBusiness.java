@@ -1,4 +1,4 @@
-package com.franca.business;
+package com.franca.services;
 
 import java.util.Properties;
 

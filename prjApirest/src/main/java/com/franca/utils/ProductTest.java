@@ -1,8 +1,8 @@
 package com.franca.utils;
 
-import com.franca.business.UserBusiness;
 import com.franca.dao.ProductDao;
 import com.franca.models.Product;
+import com.franca.services.UserBusiness;
 
 public class ProductTest {
 
