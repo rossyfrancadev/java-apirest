@@ -1,34 +1,30 @@
 package com.franca.resources;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.franca.dao.UserDao;
 import com.franca.models.User;
-import com.franca.services.UserService;;
+import com.franca.services.UserService;
 
-@Path("usuarios")
+@Path("users")
 public class UserResource {
-	// GET expecifica o verbo da rota
 
 	@GET
-	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response loginAuthentication(String email, String password) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response loginAuthentication() {
 		System.out.println("efetuando login");
-		email = "teste";
-		password = "teste";
+		String email = "teste";
+		String password = "teste";
 		boolean userOk = UserService.authenticateUser(email, password);
 
-		return Response.ok().entity(userOk).build();
+		return Response.ok().build();
 
 	}
 
