@@ -5,6 +5,8 @@ import com.franca.models.LoginRequest;
 import com.franca.models.Session;
 import com.franca.models.User;
 
+import io.jsonwebtoken.Claims;
+
 public class UserService {
 
 	public static boolean validActiveUser(User user) {
@@ -22,9 +24,10 @@ public class UserService {
 		if (user.getPassword().equals(loginRequest.getPassword())) {
 			session.setAuthenticated(true);
 			session.setUser(user.getEmail());
-			session.setToken("zAZasdalz");
+			session.setToken(AuthService.createJWT(session));
+			Claims claim = AuthService.decodeJWT(session.getToken());
 		}
-
+		System.out.println(session);
 		return session;
 	}
 
