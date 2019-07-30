@@ -1,17 +1,8 @@
 package com.franca.services;
 
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 import com.franca.dao.UserDao;
+import com.franca.models.LoginRequest;
+import com.franca.models.Session;
 import com.franca.models.User;
 
 public class UserService {
@@ -24,14 +15,17 @@ public class UserService {
 		return active;
 	}
 
-	public static boolean authenticateUser(String email, String password) {
+	public static Session authenticateUser(LoginRequest loginRequest) {
 		User user = new User();
-		boolean ok = false;
-		user = UserDao.findByEmail(email);
-		if (user.getEmail() == email && user.getPassword() == password) {
-			ok = true;
+		Session session = new Session();
+		user = UserDao.findByEmail(loginRequest.getEmail());
+		if (user.getPassword().equals(loginRequest.getPassword())) {
+			session.setAuthenticated(true);
+			session.setUser(user.getEmail());
+			session.setToken("zAZasdalz");
 		}
-		return true;
+
+		return session;
 	}
 
 }
