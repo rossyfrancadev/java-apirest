@@ -9,7 +9,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.franca.dao.UserDao;
+import com.franca.dao.UserDaoJPA;
 import com.franca.models.LoginRequest;
 import com.franca.models.Session;
 import com.franca.models.User;
@@ -46,7 +46,7 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createUser(User user) {
 		System.out.println(user);
-		UserDao.save(user);
+		UserDaoJPA.save(user);
 		return Response.status(201).build();
 	}
 

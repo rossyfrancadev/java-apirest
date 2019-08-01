@@ -1,6 +1,6 @@
 package com.franca.tests;
 
-import com.franca.dao.UserDao;
+import com.franca.dao.UserDaoJPA;
 import com.franca.services.UserService;
 
 public class UserTests {
