@@ -17,6 +17,7 @@ public class TestGenericDao {
 		Date data = new Date();
 		u.setDataCriacao(data);
 		dao.save(u);
+	
 
 		List<User> users = dao.getAll(User.class);
 		for (User user : users) {

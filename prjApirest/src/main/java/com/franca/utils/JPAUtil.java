@@ -7,10 +7,10 @@ import javax.persistence.Persistence;
 public class JPAUtil {
 
 	private static final String UNIT_NAME = "testPU";
-	private EntityManagerFactory emf = null;
-	private EntityManager em = null;
+	private static EntityManagerFactory emf = null;
+	private static EntityManager em = null;
 
-	public EntityManager getEntityManager() {
+	public static EntityManager getEntityManager() {
 		if (null == emf)
 			emf = Persistence.createEntityManagerFactory(UNIT_NAME);
 		if (null == em)

@@ -9,14 +9,6 @@ import io.jsonwebtoken.Claims;
 
 public class UserService {
 
-	public static boolean validActiveUser(User user) {
-		boolean active = false;
-		if (user.isAtivo() == true)
-			active = true;
-
-		return active;
-	}
-
 	public static Session authenticateUser(LoginRequest loginRequest) {
 		User user = new User();
 		Claims claim = null;
@@ -26,7 +18,7 @@ public class UserService {
 			session.setAuthenticated(true);
 			session.setUser(user.getEmail());
 			session.setToken(AuthService.createJWT(session));
-			 claim = AuthService.decodeJWT(session.getToken());
+			claim = AuthService.decodeJWT(session.getToken());
 		}
 		System.out.println(session);
 		System.out.println(claim);

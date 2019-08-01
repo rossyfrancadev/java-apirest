@@ -1,5 +1,7 @@
 package com.franca.resources;
 
+import java.util.Date;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,6 +19,8 @@ import com.franca.services.UserService;
 
 @Path("users")
 public class UserResource {
+
+	private UserDaoJPA dao = new UserDaoJPA();
 
 	/*
 	 * Recurso autenticação e recebimento de token
@@ -46,7 +50,9 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createUser(User user) {
 		System.out.println(user);
-		UserDaoJPA.save(user);
+		Date data = new Date();
+		user.setDataCriacao(data);
+		dao.save(user);
 		return Response.status(201).build();
 	}
 

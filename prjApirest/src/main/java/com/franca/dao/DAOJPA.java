@@ -82,6 +82,15 @@ public abstract class DAOJPA<T, I> implements DAO<T, I> {
 
 	}
 
+	public T update(Class<T> classe, I pk) {
+		try {
+			T foundClass = getEntityManager().find(classe, pk);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
 	@Override
 	public EntityManager getEntityManager() {
 		if (null == connection)

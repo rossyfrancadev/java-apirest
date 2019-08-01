@@ -62,22 +62,23 @@ public class UserDaoJPA extends DAOJPA<User, Integer> implements UserDAO {
 	// }
 	// }
 	//
-	// @SuppressWarnings("unchecked")
-	// public static User findByEmail(String email) {
-	// List<User> results = new ArrayList<>();
-	// EntityManager manager = null;
-	// manager = JPAUtil.getConnection();
-	// CriteriaBuilder qb = manager.getCriteriaBuilder();
-	// CriteriaQuery<User> criteriaQuery = qb.createQuery(User.class);
-	//
-	// Root<User> u = criteriaQuery.from(User.class);
-	// Predicate condition = qb.equal(u.get("email"), email);
-	// criteriaQuery.where(condition);
-	// TypedQuery<User> q = manager.createQuery(criteriaQuery);
-	// User result = q.getSingleResult();
-	//
-	// return result;
-	//
-	// }
+	
+	
+	public static User findByEmail(String email) {
+
+		EntityManager manager = null;
+		manager = JPAUtil.getEntityManager();
+		CriteriaBuilder qb = manager.getCriteriaBuilder();
+		CriteriaQuery<User> criteriaQuery = qb.createQuery(User.class);
+
+		Root<User> u = criteriaQuery.from(User.class);
+		Predicate condition = qb.equal(u.get("email"), email);
+		criteriaQuery.where(condition);
+		TypedQuery<User> q = manager.createQuery(criteriaQuery);
+		User result = q.getSingleResult();
+
+		return result;
+
+	}
 
 }
