@@ -18,6 +18,9 @@ import com.franca.services.UserService;
 @Path("users")
 public class UserResource {
 
+	/*
+	 * Recurso autenticação e recebimento de token
+	 */
 	@GET
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -32,6 +35,12 @@ public class UserResource {
 		}
 	}
 
+	/**
+	 * Recurso para registrar novo usuário
+	 * 
+	 * @param user
+	 * @return
+	 */
 	@POST
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_JSON)

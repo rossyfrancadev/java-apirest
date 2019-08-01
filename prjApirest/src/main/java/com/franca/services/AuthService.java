@@ -28,6 +28,10 @@ public class AuthService {
 
 		return builder.compact();
 	}
+	
+	/*
+	 * TODO:Método decode ainda não funciona corretamente 
+	 */
 
 	public static Claims decodeJWT(String jwt) {
 		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
