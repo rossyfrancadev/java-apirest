@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,14 +26,25 @@ public class ProductResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getProducts(@Context HttpHeaders httpHeader) {
-		String token = httpHeader.getHeaderString("Authorization");
-		if (null == token) {
+		// TODO: Aplicação quebra quando o token vem nulo, criar tratamento para
+		// esse erro
+
+		String token = null;
+
+		token = httpHeader.getHeaderString("Authorization");
+
+		if (null == token || token.isEmpty()) {
 			return Response.status(401).entity("No token provided").build();
 		} else {
 			if (false == UserService.verifyAuthorisation(token))
 				return Response.status(400).entity("Failed to authentication").build();
+			// Devido a trabalhar com classes generics o java encontra um erro,
+			// e por isso é necessário criar uma entidade generica
+			List<Product> products = dao.getAll(Product.class);
+			GenericEntity<List<Product>> list = new GenericEntity<List<Product>>(products) {
+			};
 
-			return Response.ok().status(200).entity(dao.getAll(Product.class)).build();
+			return Response.ok().status(200).entity(list).build();
 		}
 
 	}

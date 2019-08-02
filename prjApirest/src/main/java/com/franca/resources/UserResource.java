@@ -30,7 +30,7 @@ public class UserResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response loginAuthentication(LoginRequest loginRequest) {
-		System.out.println("login");
+		System.out.println("successful login");
 		Session userOk = UserService.authenticateUser(loginRequest);
 		if (false != userOk.isAuthenticated()) {
 			return Response.ok().header(HttpHeaders.AUTHORIZATION, "Bearer " + userOk.getToken()).build();
