@@ -9,10 +9,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import com.franca.dao.ProductDaoJPA;
 import com.franca.models.Product;
+import com.franca.services.UserService;
 
 @Path("products")
 public class ProductResource {
@@ -21,9 +24,17 @@ public class ProductResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Product> getProducts() {
-		System.out.println("get products called");
-		return dao.getAll(Product.class);
+	public Response getProducts(@Context HttpHeaders httpHeader) {
+		String token = httpHeader.getHeaderString("Authorization");
+		if (null == token) {
+			return Response.status(401).entity("No token provided").build();
+		} else {
+			if (false == UserService.verifyAuthorisation(token))
+				return Response.status(400).entity("Failed to authentication").build();
+
+			return Response.ok().status(200).entity(dao.getAll(Product.class)).build();
+		}
+
 	}
 
 	@GET

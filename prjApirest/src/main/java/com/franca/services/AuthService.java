@@ -3,6 +3,8 @@ package com.franca.services;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import java.util.Date;
 import com.franca.models.Session;
 
@@ -22,21 +24,21 @@ public class AuthService {
 
 		byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signature.getJcaName());
-
-		JwtBuilder builder = Jwts.builder().setIssuedAt(now).setSubject(session.getName()).setIssuer("")
+		JwtBuilder builder = Jwts.builder().setIssuedAt(now).setId(new Integer(session.getId()).toString())
+				.setSubject(String.valueOf(session.isAuthenticated())).setIssuer(ISSUER)
 				.signWith(signature, signingKey);
+
+		long expMillis = nowMillis + DURACAO_WEB;
+		Date exp = new Date(expMillis);
+		builder.setExpiration(exp);
 
 		return builder.compact();
 	}
-	
-	/*
-	 * TODO:Método decode ainda não funciona corretamente 
-	 */
 
 	public static Claims decodeJWT(String jwt) {
-		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
-				.parseClaimsJws(jwt)
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY)).parseClaimsJws(jwt)
 				.getBody();
 		return claims;
+
 	}
 }
