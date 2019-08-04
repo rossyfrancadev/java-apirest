@@ -15,5 +15,6 @@ public interface DAO<T, I> {
 	List<T> getAll(Class<T> classe);
 	
 	EntityManager getEntityManager();
+
 	
 }

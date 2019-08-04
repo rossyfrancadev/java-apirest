@@ -62,17 +62,17 @@ public abstract class DAOJPA<T, I> implements DAO<T, I> {
 	public T getById(Class<T> classe, I pk) {
 
 		try {
-
 			return getEntityManager().find(classe, pk);
-
 		} catch (Exception e) {
 			System.out.println("id: " + pk + " not found");
 			return null;
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> getAll(Class<T> classe) {
+
 		try {
 			return getEntityManager().createQuery("select x from " + classe.getSimpleName() + " x").getResultList();
 		} catch (Exception e) {
@@ -82,20 +82,28 @@ public abstract class DAOJPA<T, I> implements DAO<T, I> {
 
 	}
 
-	public T update(Class<T> classe, I pk) {
+	public T update(Class<T> classe, T entity) {
+		T saved = null;
 		try {
-			T foundClass = getEntityManager().find(classe, pk);
+			T foundClass = getEntityManager().find(classe, entity);
+			getEntityManager().getTransaction().begin();
+			saved = getEntityManager().merge(foundClass);
+			getEntityManager().getTransaction().commit();
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			if (getEntityManager().getTransaction().isActive() == false)
+				getEntityManager().getTransaction().begin();
+
+			getEntityManager().getTransaction().rollback();
+			System.out.println("Error to modify element" + e.getMessage());
 		}
-		return null;
+		return saved;
 	}
 
 	@Override
 	public EntityManager getEntityManager() {
 		if (null == connection)
 			connection = new JPAUtil();
-
 		return connection.getEntityManager();
 	}
 }
