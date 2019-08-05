@@ -22,47 +22,8 @@ import jersey.repackaged.com.google.common.base.MoreObjects.ToStringHelper;
  */
 public class UserDaoJPA extends DAOJPA<User, Integer> implements UserDAO {
 
-	// public static void save(User user) {
-	// EntityManager entity = null;
-	// try {
-	// entity = JPAUtil.getConnection();
-	// entity.getTransaction().begin();
-	// Date data = new Date();
-	// user.setDataCriacao(data);
-	// user.setAtivo(true);
-	// entity.persist(user);
-	// entity.getTransaction().commit();
-	// } catch (Exception e) {
-	// System.out.println(e);
-	// } finally {
-	// entity.close();
-	// }
-	// }
-	//
-	// // TODO: Função com comportamento errado, pois o user não terá id
-	// public static void updatePassword(User user) {
-	// EntityManager entity = null;
-	// try {
-	// entity = JPAUtil.getConnection();
-	// entity.getTransaction().begin();
-	//
-	// User foundUser = entity.find(User.class, user.getId());
-	// if (foundUser != null) {
-	// foundUser.setPassword(user.getPassword());
-	// entity.merge(foundUser);
-	// entity.getTransaction().commit();
-	// } else {
-	// System.out.println("user not found...");
-	// }
-	//
-	// } catch (Exception e) {
-	// System.out.println(e);
-	// } finally {
-	// entity.close();
-	// }
-	// }
-	//
 	
+
 	
 	public static User findByEmail(String email) {
 

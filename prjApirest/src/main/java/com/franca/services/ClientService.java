@@ -5,12 +5,12 @@ import java.util.List;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
-import com.franca.dao.ProductDaoJPA;
-import com.franca.models.Product;
+import com.franca.dao.ClientDaoJPA;
+import com.franca.models.Client;
 
-public class ProductService {
+public class ClientService {
 
-	private static ProductDaoJPA dao = new ProductDaoJPA();
+	private static ClientDaoJPA dao = new ClientDaoJPA();
 
 	public static Response getById(String token, int id) {
 
@@ -19,15 +19,13 @@ public class ProductService {
 		} else {
 			if (false == AuthService.verifyAuthorization(token))
 				return Response.status(400).entity("Failed to authentication").build();
+			Client client = dao.getById(Client.class, id);
+			if (client == null)
+				return Response.status(404).entity("Client id: " + id + " not found").build();
 
-			Product product = dao.getById(Product.class, id);
+			return Response.ok().status(200).entity(client).build();
 
-			if (product == null)
-				return Response.status(404).entity("product id " + id + " not found").build();
-
-			return Response.ok().status(200).entity(product).build();
 		}
-
 	}
 
 	@SuppressWarnings("unused")
@@ -37,20 +35,17 @@ public class ProductService {
 		} else {
 			if (false == AuthService.verifyAuthorization(token))
 				return Response.status(400).entity("Failed to authentication").build();
-			// Devido a trabalhar com classes generics o java encontra um erro,
-			// e por isso é necessário criar uma entidade generica
-			List<Product> products = dao.getAll(Product.class);
-			GenericEntity<List<Product>> list = new GenericEntity<List<Product>>(products) {
+			List<Client> clients = dao.getAll(Client.class);
+			GenericEntity<List<Client>> list = new GenericEntity<List<Client>>(clients) {
 			};
-
 			if (list == null)
-				return Response.status(404).entity("Empty product list").build();
+				return Response.status(404).entity("Empty client list").build();
 
 			return Response.ok().status(200).entity(list).build();
 		}
 	}
 
-	public static Response save(Product product, String token) {
+	public static Response save(Client client, String token) {
 
 		if (null == token || token.isEmpty()) {
 			return Response.status(401).entity("No token provided").build();
@@ -58,10 +53,9 @@ public class ProductService {
 			if (false == AuthService.verifyAuthorization(token))
 				return Response.status(400).entity("Failed to authentication").build();
 
-			Product saved = dao.save(product);
+			Client saved = dao.save(client);
 			return Response.status(201).entity(saved).build();
 		}
-
 	}
 
 	public static Response delete(String token, int id) {
@@ -72,13 +66,13 @@ public class ProductService {
 			if (false == AuthService.verifyAuthorization(token))
 				return Response.status(400).entity("Failed to authentication").build();
 
-			boolean removed = dao.remove(Product.class, id);
+			boolean removed = dao.remove(Client.class, id);
 			if (removed == false)
 				return Response.ok().status(404).entity("Product was not removed").build();
 
 			return Response.ok().status(200).entity("Product id: " + id + " has removed successfully!").build();
 		}
-
 	}
+	
 
 }

@@ -1,13 +1,10 @@
 package com.franca.services;
 
-import javax.ws.rs.core.Response;
-
 import com.franca.dao.UserDaoJPA;
 import com.franca.models.LoginRequest;
 import com.franca.models.Session;
 import com.franca.models.User;
 
-import io.jsonwebtoken.Claims;
 
 public class UserService {
 
@@ -22,13 +19,6 @@ public class UserService {
 			session.setToken(AuthService.createJWT(session));
 		}
 		return session;
-	}
-
-	public static boolean verifyAuthorisation(String jwt) {
-		boolean isOK = false;
-		Claims claims = AuthService.decodeJWT(jwt);
-		isOK = Boolean.parseBoolean((String) claims.get("sub")) == true ? true : false;
-		return isOK;
 	}
 
 }

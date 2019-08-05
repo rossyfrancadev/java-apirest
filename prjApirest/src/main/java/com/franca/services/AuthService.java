@@ -41,4 +41,11 @@ public class AuthService {
 		return claims;
 
 	}
+	
+	public static boolean verifyAuthorization(String jwt) {
+		boolean isOK = false;
+		Claims claims = AuthService.decodeJWT(jwt);
+		isOK = Boolean.parseBoolean((String) claims.get("sub")) == true ? true : false;
+		return isOK;
+	}
 }

@@ -4,9 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.franca.models.EntidadeBase;
 import com.franca.utils.JPAUtil;
 
-public abstract class DAOJPA<T, I> implements DAO<T, I> {
+public abstract class DAOJPA<T extends EntidadeBase, I> implements DAO<T, I> {
 
 	private JPAUtil connection;
 
@@ -16,9 +17,14 @@ public abstract class DAOJPA<T, I> implements DAO<T, I> {
 		T saved = null;
 
 		try {
+			//If the entity has id == POST(persist), else PUT(merge) 
+			if (Long.valueOf(entity.getId()) == null) {
+				getEntityManager().persist(entity);
+			} else {
+				getEntityManager().getTransaction().begin();
+				saved = getEntityManager().merge(entity);
+			}
 
-			getEntityManager().getTransaction().begin();
-			saved = getEntityManager().merge(entity);
 			getEntityManager().getTransaction().commit();
 
 		} catch (Exception e) {

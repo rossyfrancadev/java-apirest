@@ -12,55 +12,49 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import com.franca.models.Product;
-import com.franca.services.ProductService;
+import com.franca.models.Client;
+import com.franca.services.ClientService;
 
-@Path("products")
-public class ProductResource {
-
+@Path("clients")
+public class ClientResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProducts(@Context HttpHeaders httpHeader) {
+	public Response getClients(@Context HttpHeaders httpHeader) {
 		String token = null;
 		token = httpHeader.getHeaderString("Authorization");
-		return ProductService.getAll(token);
+		return ClientService.getAll(token);
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getProductById(@Context HttpHeaders httpHeader, @PathParam("id") int id) {
+	public Response getClientById(@Context HttpHeaders httpHeader, @PathParam("id") int id) {
 		String token = null;
 		token = httpHeader.getHeaderString("Authorization");
-		return ProductService.getById(token, id);
+		return ClientService.getById(token, id);
 	}
 
-	/**
-	 * TODO:Tratar retorno do recurso, verificar melhor forma de retorno
-	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response insertProduct(Product product, @Context HttpHeaders httpHeader) {
+	public Response insertClient(Client client, @Context HttpHeaders httpHeader) {
 		String token = null;
 		token = httpHeader.getHeaderString("Authorization");
-		return ProductService.save(product, token);
-	}
-
-	// TODO: Implementar método PUT corretamente utilizando generic e hibernate
-	@PUT
-	public Response modifyProduct(@Context HttpHeaders httpHeader, Product product) {
-		String token = null;
-		token = httpHeader.getHeaderString("Authorization");
-		return ProductService.save(product, token);
+		return ClientService.save(client, token);
 	}
 
 	@DELETE
 	@Path("/{id}")
-	public Response deleteProduct(@Context HttpHeaders httpHeader, @PathParam("id") int id) {
+	public Response deleteClient(@Context HttpHeaders httpHeader, @PathParam("id") int id) {
 		String token = null;
 		token = httpHeader.getHeaderString("Authorization");
-		return ProductService.delete(token, id);
+		return ClientService.delete(token, id);
 	}
 
+	@PUT
+	public Response modifyClient(@Context HttpHeaders httpHeader, Client client) {
+		String token = null;
+		token = httpHeader.getHeaderString("Authorization");
+		return ClientService.save(client, token);
+	}
 }
