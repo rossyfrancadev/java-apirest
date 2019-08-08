@@ -1,29 +1,21 @@
 package com.franca.dao;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import com.franca.models.User;
 import com.franca.utils.JPAUtil;
 
-import jersey.repackaged.com.google.common.base.MoreObjects.ToStringHelper;
+
 
 /**
  * E entidade Usuário terá somente a sua inclusão, alteração de senha e a
  * autenticação de usuário
  */
 public class UserDaoJPA extends DAOJPA<User, Integer> implements UserDAO {
-
-	
-
 	
 	public static User findByEmail(String email) {
 
