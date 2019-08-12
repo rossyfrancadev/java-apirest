@@ -2,6 +2,7 @@ package com.franca.utils;
 
 import java.io.IOException;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
@@ -20,5 +21,5 @@ public class CorsFilter implements ContainerResponseFilter {
 		responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
 	}
-
+	
 }

@@ -62,10 +62,7 @@ public class ProductService {
 		// authentication").build();
 
 		Product saved = dao.save(product);
-		return Response.status(201).entity(saved).header("Access-Control-Allow-Origin", "*")
-				.header("Access-Control-Allow-Credentials", "true")
-				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
+		return Response.status(201).entity(saved).build();
 		// }
 
 	}
