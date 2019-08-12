@@ -1,4 +1,4 @@
-package com.franca.utils;
+package com.franca.tests;
 
 import com.franca.services.AuthService;
 

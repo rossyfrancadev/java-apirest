@@ -1,4 +1,4 @@
-package com.franca.utils;
+package com.franca.tests;
 
 import java.util.Date;
 import java.util.List;

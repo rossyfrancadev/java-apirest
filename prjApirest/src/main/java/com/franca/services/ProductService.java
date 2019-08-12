@@ -32,35 +32,41 @@ public class ProductService {
 
 	@SuppressWarnings("unused")
 	public static Response getAll(String token) {
-		if (null == token || token.isEmpty()) {
-			return Response.status(401).entity("No token provided").build();
-		} else {
-			if (false == AuthService.verifyAuthorization(token))
-				return Response.status(400).entity("Failed to authentication").build();
-			// Devido a trabalhar com classes generics o java encontra um erro,
-			// e por isso é necessário criar uma entidade generica
-			List<Product> products = dao.getAll(Product.class);
-			GenericEntity<List<Product>> list = new GenericEntity<List<Product>>(products) {
-			};
+		// if (null == token || token.isEmpty()) {
+		// return Response.status(401).entity("No token provided").build();
+		// } else {
+		// if (false == AuthService.verifyAuthorization(token))
+		// return Response.status(400).entity("Failed to
+		// authentication").build();
+		// // Devido a trabalhar com classes generics o java encontra um erro,
+		// // e por isso é necessário criar uma entidade generica
+		List<Product> products = dao.getAll(Product.class);
+		GenericEntity<List<Product>> list = new GenericEntity<List<Product>>(products) {
+		};
 
-			if (list == null)
-				return Response.status(404).entity("Empty product list").build();
-
-			return Response.ok().status(200).entity(list).build();
-		}
+		if (list == null)
+			return Response.status(404).entity("Empty product list").build();
+		// TODO: Headers serão inseridos através do CorsFilter, criado porém não
+		// implementado
+		return Response.ok().status(200).entity(list).status(200).build();
+		// }
 	}
 
 	public static Response save(Product product, String token) {
+		//
+		// if (null == token || token.isEmpty()) {
+		// return Response.status(401).entity("No token provided").build();
+		// } else {
+		// if (false == AuthService.verifyAuthorization(token))
+		// return Response.status(400).entity("Failed to
+		// authentication").build();
 
-		if (null == token || token.isEmpty()) {
-			return Response.status(401).entity("No token provided").build();
-		} else {
-			if (false == AuthService.verifyAuthorization(token))
-				return Response.status(400).entity("Failed to authentication").build();
-
-			Product saved = dao.save(product);
-			return Response.status(201).entity(saved).build();
-		}
+		Product saved = dao.save(product);
+		return Response.status(201).entity(saved).header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Credentials", "true")
+				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
+		// }
 
 	}
 
