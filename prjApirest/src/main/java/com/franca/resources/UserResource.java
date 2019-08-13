@@ -25,15 +25,13 @@ public class UserResource {
 	/*
 	 * Recurso autenticação e recebimento de token
 	 */
-	@GET
+	@POST
 	@Path("/login")
-	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response loginAuthentication(LoginRequest loginRequest) {
-		System.out.println("successful login");
 		Session userOk = UserService.authenticateUser(loginRequest);
 		if (false != userOk.isAuthenticated()) {
-			return Response.ok().header(HttpHeaders.AUTHORIZATION, "Bearer " + userOk.getToken()).build();
+			return Response.ok().header(HttpHeaders.AUTHORIZATION, userOk.getToken()).build();
 		} else {
 			return Response.status(401).build();
 		}
